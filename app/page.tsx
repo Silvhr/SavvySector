@@ -15,21 +15,26 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
-  const search = searchParams.q ?? '';
-  const result = await sql`
-    SELECT id, name, username, email 
-    FROM users 
-    WHERE name ILIKE ${'%' + search + '%'};
-  `;
-  const users = result.rows as User[];
+  // const search = searchParams.q ?? '';
+  // const result = await sql`
+  //   SELECT id, name, username, email 
+  //   FROM users 
+  //   WHERE name ILIKE ${'%' + search + '%'};
+  // `;
+  // const users = result.rows as User[];
 
   return (
-    <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <Title>Users</Title>
-      <Text>A list of users retrieved from a Postgres database.</Text>
-      <Search />
+    <main className="p-4 md:p-1 mx-auto max-w-7xl">
       <Card className="mt-6">
-        <UsersTable users={users} />
+      <Title>Run Simulation</Title>
+      <Card title="Timeline and Progress">
+        {/* Timeline and Progress components */}
+      </Card>
+      {/* <Chart /> */}
+      <Card title="Macro Information">
+        {/* Macro Information components */}
+      </Card>
+      {/* <Carousel /> */}
       </Card>
     </main>
   );

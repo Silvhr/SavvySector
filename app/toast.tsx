@@ -11,14 +11,14 @@ export default function Toast() {
         <p className="text-black text-[13px] font-mono w-[304px] h-10 flex items-center justify-center p-3">
           Get started with Next.js and Vercel instantly. <DismissButton />
         </p>
-        <a
+        {/* <a
           className="text-white text-[13px] font-mono bg-black hover:bg-gray-700 transition-all rounded-md w-[220px] h-10 flex items-center justify-center whitespace-nowrap"
           href="https://vercel.com/templates/next.js/admin-dashboard-tailwind-planetscale-react-nextjs"
           target="_blank"
           rel="noreferrer"
         >
           Clone & Deploy
-        </a>
+        </a> */}
       </div>
     </div>
   );
