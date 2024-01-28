@@ -1,0 +1,87 @@
+[
+  {
+    "year": 2005,
+    "headlines": [
+      {
+        "text": "Energy went up, telecomm went down - The Energy Policy Act of 2005 signed by President George W. Bush in August 2005.",
+        "url": "https://ballotpedia.org/Energy_Policy_Act_of_2005#:~:text=The%20Energy%20Policy%20Act%20of,Bush%20in%20August%202005."
+      },
+      {
+        "text": "No quarter in this telecom tussle - Telecom industry challenges in 2005.",
+        "url": "https://www.bloomberg.com/news/articles/2005-04-17/no-quarter-in-this-telecom-tussle?embedded-checkout=true"
+      },
+      {
+        "text": "Telecom industry challenges in 2005.",
+        "url": "https://www.barrons.com/articles/SB111686055982240628?mod=news_archive"
+      }
+    ]
+  },
+  {
+    "year": 2006,
+    "headlines": [
+      {
+        "text": "Telecom went up, Tech went down - ITU Telecom World 2006 and its outlook.",
+        "url": "https://www.bloomberg.com/news/articles/2006-12-04/itu-telecom-world-2006-a-robust-outlookbusinessweek-business-news-stock-market-and-financial-advice?embedded-checkout=true"
+      },
+      {
+        "text": "ITU Telecom World 2006 and its outlook.",
+        "url": "https://www.nytimes.com/2006/11/01/technology/circuits/01pogue.html"
+      },
+      {
+        "text": "Global markets and Fed rates in 2006.",
+        "url": "https://money.cnn.com/2006/06/08/markets/fed_rates_globalmarkets/index.htm"
+      }
+    ]
+  },
+  {
+    "year": 2007,
+    "headlines": [
+      {
+        "text": "Energy went up, Housing market starts to drop, iPhone drops! - Signs of recession and the impact on the housing market and technology sector.",
+        "url": "https://money.cnn.com/2007/11/23/magazines/fortune/barr_recession.fortune/index.htm?postversion=2007112517"
+      },
+      {
+        "text": "Housing market starts to drop, iPhone drops!",
+        "url": "https://www.cnbc.com/id/22452086"
+      },
+      {
+        "text": "Housing market starts to drop, iPhone drops!",
+        "url": "https://www.nytimes.com/2007/01/10/technology/10apple.html"
+      }
+    ]
+  },
+  {
+    "year": 2008,
+    "headlines": [
+      {
+        "text": "Housing crisis, Bernie Madoff Ponzi scheme - The financial crisis, housing market collapse, and the Bernie Madoff Ponzi scheme.",
+        "url": "https://www.nytimes.com/2008/09/18/business/18markets.html"
+      },
+      {
+        "text": "The financial crisis and housing market collapse.",
+        "url": "https://www.sec.gov/news/press/2008/2008-293.htm"
+      },
+      {
+        "text": "SEC exposes Bernie Madoff's Ponzi scheme.",
+        "url": "https://www.jstor.org/stable/27647084?seq=3"
+      }
+    ]
+  },
+  {
+    "year": 2009,
+    "headlines": [
+      {
+        "text": "Tech went up 60%, AMD makes a lot of money, oil prices leap - Technology sector performance, AMD's financial success, and oil market changes.",
+        "url": "https://www.fool.com/investing/general/2009/03/16/technology-the-strange-outperformer-in-2009.aspx"
+      },
+      {
+        "text": "Technology sector performance in 2009.",
+        "url": "https://www.wired.com/2009/11/intel-to-pay-amd-1-25-billion-settle-all-disputes/"
+      },
+      {
+        "text": "Intel to pay AMD $1.25 billion to settle all disputes.",
+        "url": "https://www.theguardian.com/business/2009/jun/10/oil-market-reserves"
+      }
+    ]
+  }
+]
