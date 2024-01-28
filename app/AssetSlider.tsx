@@ -49,8 +49,8 @@ const AssetSlider: React.FC<AssetSliderProps> = ({ financialData, onPortfolioUpd
   return (
     <div>
       {values.map((item) => (
-        <div key={item.sector}>
-          <label>{item.sector}: {item.value}</label>
+        <div key={item.sector} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <label style={{ width: '150px', marginRight: '10px', textAlign: 'right' }}>{item.sector}</label>
           <input
             type="range"
             min="0"
@@ -58,11 +58,23 @@ const AssetSlider: React.FC<AssetSliderProps> = ({ financialData, onPortfolioUpd
             step="10000"
             value={item.value}
             onChange={(e) => handleSliderChange(item.sector, parseInt(e.target.value))}
-            style={{ width: '300px' }}  // Adjust the width as needed
+            style={{ width: '300px', flexGrow: 1 }}
           />
+          <label style={{ marginLeft: '10px' }}>{item.value}</label>
         </div>
       ))}
-      <div>Total Allocated: {totalAllocation}/{portfolioValue}</div>
+      <div>
+        Total Allocated: {totalAllocation}/{portfolioValue}
+        {totalAllocation > portfolioValue && (
+          <span style={{ color: 'red' }}> - You are over the allocation limit</span>
+        )}
+        {totalAllocation < portfolioValue && (
+          <span style={{ color: 'blue' }}> - You are under the allocation limit</span>
+        )}
+        {totalAllocation === portfolioValue && (
+          <span style={{ color: 'green' }}> - Ready to save Portfolio!</span>
+        )}
+      </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
         <button 
           onClick={handleSavePortfolio}
