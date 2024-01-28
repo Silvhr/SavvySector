@@ -19,6 +19,7 @@
     "@vercel/analytics": "^1.1.1",
     "@vercel/postgres": "^0.5.0",
     "autoprefixer": "^10.4.16",
+    "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "embla-carousel-react": "8.0.0-rc21",
@@ -33,11 +34,13 @@
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-query": "^3.39.3",
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "^3.3.5",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "use-query": "^1.0.2"
   },
   "prettier": {
     "arrowParens": "always",
