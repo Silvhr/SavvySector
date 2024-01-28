@@ -11,6 +11,7 @@ import xlvDataJSON from "./XLV-data.json"
 import xlyDataJSON from "./XLY-data.json"
 import xrtDataJSON from "./XRT-data.json"
 
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
 

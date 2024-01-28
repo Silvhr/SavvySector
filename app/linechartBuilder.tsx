@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { useAtom } from 'jotai'
 import { valueAtom } from "@/components/atoms/valueAtom"
 
+export const dynamic = "force-dynamic";
+
 
 interface HistoricalData {
     time: string;
@@ -26,6 +28,7 @@ interface LineChartBuilderProps {
 // Define a function to fetch data using Axios
 const fetchData = async (sector: string, start: string, end:string) => {
     try {
+        console.log(start, end);
       const response = await axios.get('/api/getHistoricalData', {
         params: {
           sector: sector,
@@ -59,17 +62,17 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
     console.log(start, end);
 
     // fetch data
-  const { data: voxDataJSON, error: voxError} = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
-  const { data: xlbDataJSON, error: xlbError} = useQuery('xlbDataQuery', () => fetchData("XLB", start, end));
-  const { data: xleDataJSON, error: xleError} = useQuery('xleDataQuery', () => fetchData("XLE", start, end));
-  const { data: xlfDataJSON, error: xlfError} = useQuery('xlfDataQuery', () => fetchData("XLF", start, end));
-  const { data: xliDataJSON, error: xliError} = useQuery('xliDataQuery', () => fetchData("XLI", start, end));
-  const { data: xlkDataJSON, error: xlkError} = useQuery('xlkDataQuery', () => fetchData("XLK", start, end));
-  const { data: xlpDataJSON, error: xlpError} = useQuery('xlpDataQuery', () => fetchData("XLP", start, end));
-  const { data: xluDataJSON, error: xluError} = useQuery('xluDataQuery', () => fetchData("XLU", start, end));
-  const { data: xlvDataJSON, error: xlvError} = useQuery('xlvDataQuery', () => fetchData("XLV", start, end));
-  const { data: xlyDataJSON, error: xlyError} = useQuery('xlyDataQuery', () => fetchData("XLY", start, end));
-  const { data: xrtDataJSON, error: xrtError } = useQuery('xrtDataQuery', () => fetchData("XRT", start, end));
+  const { data: voxDataJSON, error: voxError, refetch: voxRefetch} = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
+  const { data: xlbDataJSON, error: xlbError, refetch: xlbRefetch} = useQuery('xlbDataQuery', () => fetchData("XLB", start, end));
+  const { data: xleDataJSON, error: xleError, refetch: xleRefetch} = useQuery('xleDataQuery', () => fetchData("XLE", start, end));
+  const { data: xlfDataJSON, error: xlfError, refetch: xlfRefetch} = useQuery('xlfDataQuery', () => fetchData("XLF", start, end));
+  const { data: xliDataJSON, error: xliError, refetch: xliRefetch} = useQuery('xliDataQuery', () => fetchData("XLI", start, end));
+  const { data: xlkDataJSON, error: xlkError, refetch: xlkRefetch} = useQuery('xlkDataQuery', () => fetchData("XLK", start, end));
+  const { data: xlpDataJSON, error: xlpError, refetch: xlpRefetch} = useQuery('xlpDataQuery', () => fetchData("XLP", start, end));
+  const { data: xluDataJSON, error: xluError, refetch: xluRefetch} = useQuery('xluDataQuery', () => fetchData("XLU", start, end));
+  const { data: xlvDataJSON, error: xlvError, refetch: xlvRefetch} = useQuery('xlvDataQuery', () => fetchData("XLV", start, end));
+  const { data: xlyDataJSON, error: xlyError, refetch: xlyRefetch} = useQuery('xlyDataQuery', () => fetchData("XLY", start, end));
+  const { data: xrtDataJSON, error: xrtError, refetch: xrtRefetch} = useQuery('xrtDataQuery', () => fetchData("XRT", start, end));
 
   // console.log(xluDataJSON);
 
@@ -85,7 +88,25 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
   if (xlyError) { console.error('Error fetching data:', xlyError); }
   if (xrtError) { console.error('Error fetching data:', xrtError); }
 
+  useEffect(() => {
+    // Some condition or event that triggers a refetch
 
+      voxRefetch();
+      xlbRefetch();
+      xleRefetch();
+      xlfRefetch();
+      xlkRefetch();
+      xliRefetch();
+      xlpRefetch();
+      xluRefetch();
+      xlvRefetch();
+      xlyRefetch();
+      xrtRefetch();
+    
+  
+    // ... other conditions ...
+  
+  }, [currentYear]);
 
   //   const [hist, setHist] = useState<HistoricalData[]>([]);
   let vox: any = [];
