@@ -1,7 +1,9 @@
 'use client';
 import React from 'react';
-import Chart from 'react-apexcharts';
+// import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
+import dynamic from "next/dynamic";
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface FinancialData {
     sector: string;
@@ -36,7 +38,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 
     return (
         <div>
-            <Chart options={options} series={series} type="donut" width="380" />
+            <ApexCharts options={options} series={series} type="donut" width="380" height={150} />
         </div>
     );
 };
