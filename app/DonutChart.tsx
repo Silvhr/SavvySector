@@ -38,7 +38,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 
     return (
         <div>
-            <ApexCharts options={options} series={series} type="donut" width="380" height={150} />
+            <ApexCharts options={options} series={series} type="donut" width="600" height={300} />
         </div>
     );
 };

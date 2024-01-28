@@ -214,12 +214,19 @@ export default function Page() {
         </Card>
       </div>
       <div>
-        <Card title="Financial Sectors Donut Chart">
-          <DonutChart data={financialDataState} />
-        </Card>
-        <Card title="S&P500 Donut Chart">
-          <DonutChart data={SPData1} />
-        </Card>
+
+        <div className='flex'>
+  <Card title="Financial Sectors Donut Chart">
+    <h2>Your Holdings</h2>
+    <DonutChart data={financialDataState} />
+  </Card>
+
+  <Card title="S&P500 Donut Chart">
+    <h2>S&P500 Holdings</h2>
+    <DonutChart data={SPData1}/>
+  </Card>
+</div>
+
         <Card>
             <LineChartBuilder weights={weights} start={start} end={end}/>
           {/* <LineChart data={hist} /> */}
