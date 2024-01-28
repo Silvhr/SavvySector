@@ -5,10 +5,7 @@ import { useQuery } from 'react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-<<<<<<< Updated upstream
 import axios from 'axios';
-=======
->>>>>>> Stashed changes
 import {
   Carousel,
   CarouselContent,
@@ -60,7 +57,7 @@ export default function Page() {
   const [startYear, setStartYear] = useState(2005); // eventually update this randomly from range from database
   const [currentYear, setCurrentYear] = useState(startYear); // eventually update this randomly from range from database
   const [financialDataState, setFinancialDataState] = useState(SPData1);
-  const { headlines, error } = useQuery('headlines', () => fetchData(currentYear));
+  const { data: headline, error } = useQuery('headlines', () => fetchData(currentYear));
 
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
     console.log('Updating Portfolio Data:', updatedData); // Log new data

@@ -116,6 +116,9 @@ dependencies:
   typescript:
     specifier: 5.2.2
     version: 5.2.2
+  use-query:
+    specifier: ^1.0.2
+    version: 1.0.2
 
 packages:
 
@@ -3548,6 +3551,11 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.3.0
+    dev: false
+
+  /use-query@1.0.2:
+    resolution: {integrity: sha512-Ypdv/LMbs4OnjCCZ4QtWVCu5XKUUiHZSf0X0dToZahX9BXs5LmVkBCgLN8PVEGcuulNI7fL1SOukFGesWhO2EA==}
+    engines: {node: '>=6.0.0'}
     dev: false
 
   /utf-8-validate@6.0.3:
