@@ -147,9 +147,9 @@ export default function Page() {
       setCurrentYear(startYear);
     }
   };
-    const weights: number[] = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const start: string = "2005-01-01";
-    const end: string = "2006-01-01";
+    const [weights, setWeights] = useState([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const [start, setStart] = useState("2005-01-01");
+    const [end, setEnd] = useState("2006-01-01");
 
   return (
     <main className="p-4 md:p-1 mx-auto max-w-7xl">
@@ -221,7 +221,7 @@ export default function Page() {
           <DonutChart data={SPData1} />
         </Card>
         <Card>
-            <LineChartBuilder weights={weights} start={start} end={end}/>
+            <LineChartBuilder weights={financialDataState} currentYear={currentYear}/>
           {/* <LineChart data={hist} /> */}
         </Card>
 

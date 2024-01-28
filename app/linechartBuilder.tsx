@@ -12,10 +12,14 @@ interface HistoricalData {
     value: number;
 }
 
+interface FinancialSector {
+    sector: string;
+    value: number;
+  }
+
 interface LineChartBuilderProps {
-    weights: number[];
-    start: string;
-    end: string;
+    weights: FinancialSector[];
+    currentYear: number;
 }
 
 // Define a function to fetch data using Axios
@@ -38,7 +42,10 @@ const fetchData = async (sector: string, start: string, end:string) => {
   
 
 
-const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}) => {
+const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear}) => {
+
+    const start = String(currentYear) + "-01-01";
+    const end = String(currentYear) + "-12-31"
 
     // fetch data
   const { data: voxDataJSON, error: voxError } = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
@@ -113,18 +120,28 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}
     xrt = xrtData;
 
 
+    let total = 0;
+
+    for (const sector of weights) {
+        total += sector.value;
+    }
+
+
+
+
+
     // apply coefficients
-    for (const date in vox) { vox[date].value *= weights[0]; }
-    for (const date in xlb) { xlb[date].value *= weights[1]; }
-    for (const date in xle) { xle[date].value *= weights[2]; }
-    for (const date in xlf) { xlf[date].value *= weights[3]; }
-    for (const date in xli) { xli[date].value *= weights[4]; }
-    for (const date in xlk) { xlk[date].value *= weights[5]; }
-    for (const date in xlp) { xlp[date].value *= weights[6]; }
-    for (const date in xlu) { xlu[date].value *= weights[7]; }
-    for (const date in xlv) { xlv[date].value *= weights[8]; }
-    for (const date in xly) { xly[date].value *= weights[9]; }
-    for (const date in xrt) { xrt[date].value *= weights[10]; }
+    for (const date in vox) { vox[date].value *= (weights[0].value / total); }
+    for (const date in xlb) { xlb[date].value *= (weights[1].value / total); }
+    for (const date in xle) { xle[date].value *= (weights[2].value / total); }
+    for (const date in xlf) { xlf[date].value *= (weights[3].value / total); }
+    for (const date in xli) { xli[date].value *= (weights[4].value / total); }
+    for (const date in xlk) { xlk[date].value *= (weights[5].value / total); }
+    for (const date in xlp) { xlp[date].value *= (weights[6].value / total); }
+    for (const date in xlu) { xlu[date].value *= (weights[7].value / total); }
+    for (const date in xlv) { xlv[date].value *= (weights[8].value / total); }
+    for (const date in xly) { xly[date].value *= (weights[9].value / total); }
+    for (const date in xrt) { xrt[date].value *= (weights[10].value / total); }
 
     // last values
     console.log(vox[vox.length - 1].value);
@@ -142,7 +159,10 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}
         vox[date].value += xlv[date].value;
         vox[date].value += xly[date].value;
         vox[date].value += xrt[date].value;
+        vox[date].value += weights[11];
     }
+
+    
 
    }
 
