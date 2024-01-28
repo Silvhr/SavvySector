@@ -17,6 +17,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { Text } from '@tremor/react';
 import DonutChart from './DonutChart'; // Ensure this path is correct
 import AssetSlider from './AssetSlider';
+import LineChartBuilder from './linechartBuilder';
 
 interface FinancialSector {
   sector: string;
@@ -43,12 +44,12 @@ const fetchData = async (year: number) => {
     const response = await axios.get('/api/headlines', {
       params: {
         year: year
-      },
+      }
     });
     const data: Headline = response.data;
     return data;
   } catch (error) {
-    console.error("Error loading menu data:", error);
+    console.error('Error loading menu data:', error);
     throw error;
   }
 };
@@ -57,7 +58,14 @@ export default function Page() {
   const [startYear, setStartYear] = useState(2005); // eventually update this randomly from range from database
   const [currentYear, setCurrentYear] = useState(startYear); // eventually update this randomly from range from database
   const [financialDataState, setFinancialDataState] = useState(SPData1);
-  const { data: headline, error } = useQuery('headlines', () => fetchData(currentYear));
+  const { data: headline, error } = useQuery('headlines', () =>
+    fetchData(currentYear)
+  );
+  if(error) {
+    console.log(error);
+  }
+
+  const weights: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
     console.log('Updating Portfolio Data:', updatedData); // Log new data
@@ -67,13 +75,13 @@ export default function Page() {
   const handleIncrementYear = () => {
     if (currentYear < startYear + 6) {
       setCurrentYear((prevYear) => prevYear + 1);
-      console.log(currentYear);
+      // console.log(currentYear);
 
-      console.log(((currentYear - startYear) / 5) * 100);
+      // console.log(((currentYear - startYear) / 5) * 100);
       // console.log((currentYear - startYear / 5));
     } else {
       // setGameOver(true);
-      console.log('Game Over');
+      // console.log('Game Over');
       setCurrentYear(startYear);
     }
   };
@@ -100,7 +108,7 @@ export default function Page() {
               className=""
             />
             <Text className="text-2xl font-semibold text-right">
-              {startYear + 5}
+              {startYear + 4}
             </Text>
             <Carousel
               className="w-full max-w-sm mx-auto"
@@ -147,6 +155,10 @@ export default function Page() {
         <Card title="S&P500 Donut Chart">
           <DonutChart data={SPData1} />
         </Card>
+        <Card>
+          <LineChartBuilder weights={weights} />
+          {/* <LineChart data={hist} /> */}
+        </Card>
 
         <Card title="Asset Slider ">
           <AssetSlider
@@ -158,31 +170,3 @@ export default function Page() {
     </main>
   );
 }
-
-// const search = searchParams.q ?? '';
-// const result = await sql`
-//   SELECT id, name, username, email
-//   FROM users
-//   WHERE name ILIKE ${'%' + search + '%'};
-// `;
-// const users = result.rows as User[];
-//Default data for start of year 0
-
-// export default function IndexPage() {
-//   // State for holding financial data
-
-//     return (
-//         <main className="p-4 md:p-1 mx-auto max-w-7xl">
-//             <Card className="mt-6">
-
-//                 {/* Financial Sectors Donut Chart - Dynamic */}
-
-{
-  /* S&P500 Donut Chart - Static */
-}
-
-//                 {/* More components as needed */}
-//             </Card>
-//         </main>
-//     );
-// }

@@ -1,47 +1,65 @@
-"use client"
+'use client';
 
 import React, { ReactNode, useEffect, useState } from 'react';
+import { ApexOptions } from 'apexcharts';
 
-import ReactApexChart from 'react-apexcharts';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface HistoricalData {
-    time: string;
-    value: number;
+  time: string;
+  value: number;
 }
 
 interface LineChartProps {
-    data: HistoricalData[];
+  data: HistoricalData[];
 }
 
-interface LineChartProps {
-  // Define any props your component may receive
-}
+const LineChart: React.FC<LineChartProps> = ({ data }, width) => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth - 100 : 1000,
+    height: 350
+  });
 
-const LineChart: React.FC<LineChartProps> = ({data}) => {
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth - 300,
+        height: 350 // You can set the default height or adjust it as needed
+      });
+    };
+    // Attach event listener for window resize
+    window.addEventListener('resize', handleResize);
 
-    const times = data.map(item => item.time);
-    const series = data.map(item => item.value);
-    
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const times = data.map((item) => item.time);
+  const series = data.map((item) => item.value);
+
   // Sample data for the chart
   const chartData = {
     options: {
       chart: {
-        id: 'basic-line',
+        id: 'basic-line'
       },
       xaxis: {
         categories: times,
         labels: {
-          show: true,  // Initially show all labels
-          rotate: 0,   // Rotate labels if needed
-        },
-      },
+          show: true, // Initially show all labels
+          rotate: 0 // Rotate labels if needed
+        }
+      }
     },
     series: [
       {
         name: 'Series 1',
-        data: series,
-      },
-    ],
+        data: series
+      }
+    ]
   };
 
   // State to track whether to render the chart
@@ -54,20 +72,19 @@ const LineChart: React.FC<LineChartProps> = ({data}) => {
     }
   }, []);
 
-  if(typeof window !== 'undefined')
-  {
-    
+  if (typeof window !== 'undefined') {
   }
 
   return (
     <div>
-      <h1>Hello, Im a React component with an ApexCharts Line Chart!</h1>
+      {/* <h1>Hello, Im a React component with an ApexCharts Line Chart!</h1> */}
       {renderChart && (
-        <ReactApexChart
-          options={chartData.options as ApexCharts.ApexOptions}
+        <ApexCharts
+          options={chartData.options as ApexOptions}
           series={chartData.series}
           type="line"
-          height={350}
+          height={windowSize.height}
+          width={windowSize.width}
         />
       )}
     </div>
