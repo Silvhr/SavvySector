@@ -107,7 +107,7 @@ const LineChart: React.FC<LineChartProps> = ({ data }, width) => {
           type="line"
           height={windowSize.height}
           width={windowSize.width}
-          className="h-60"
+          className=""
         />
       )}
     </div>
