@@ -22,6 +22,7 @@ interface User {
   email: string;
 }
 
+<<<<<<< HEAD
 export default function Page() {
   const plugin = useRef(
     Autoplay({ delay: 3500, stopOnInteraction: true })
@@ -32,10 +33,25 @@ export default function Page() {
     const timer = setTimeout(() => setProgress(66), 500)
     return () => clearTimeout(timer)
   }, [])
+=======
+export default async function IndexPage({
+  searchParams
+}: {
+  searchParams: { q: string };
+}) {
+  // const search = searchParams.q ?? '';
+  // const result = await sql`
+  //   SELECT id, name, username, email 
+  //   FROM users 
+  //   WHERE name ILIKE ${'%' + search + '%'};
+  // `;
+  // const users = result.rows as User[];
+>>>>>>> 29f90e9d95a8a9a03705420fead32e55730d9e9e
 
   return (
     <main className="p-4 md:p-1 mx-auto max-w-7xl">
       <Card className="mt-6">
+<<<<<<< HEAD
         <Progress value={progress} className="w-[60%]"/>
         <Card title="Timeline and Progress">
         </Card>
@@ -70,6 +86,17 @@ export default function Page() {
         <Card title="Macro Information">
           {/* Macro Information components */}
         </Card>
+=======
+      <Title>Run Simulation</Title>
+      <Card title="Timeline and Progress">
+        {/* Timeline and Progress components */}
+      </Card>
+      {/* <Chart /> */}
+      <Card title="Macro Information">
+        {/* Macro Information components */}
+      </Card>
+      {/* <Carousel /> */}
+>>>>>>> 29f90e9d95a8a9a03705420fead32e55730d9e9e
       </Card>
     </main>
   );
