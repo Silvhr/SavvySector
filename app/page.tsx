@@ -1,7 +1,13 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Title } from '@tremor/react';
 import DonutChart from './DonutChart'; // Ensure this path is correct
+import AssetSlider from './AssetSlider';
+
+interface FinancialSector {
+  sector: string;
+  value: number;
+}
 
 // Example static data
 const financialData = [
@@ -21,23 +27,28 @@ const financialData = [
 
 // Example static data
 const SPData1 = [
-  { sector: "Communication Services", value: 0 },
-  { sector: "Consumer Discretionary", value: 0 },
-  { sector: "Consumer Staples", value: 25 },
-  { sector: "Energy", value: 30 },
-  { sector: "Finance", value: 30 },
-  { sector: "Healthcare", value: 15 },
-  { sector: "Industrials", value: 15 },
-  { sector: "Materials", value: 20 },
-  { sector: "Real Estate", value: 20 },
-  { sector: "Technology", value: 15 },
-  { sector: "Utilities", value: 15 },
-  { sector: "Cash", value: 5 },
+  { sector: "Communication Services", value: 260000 },
+  { sector: "Consumer Discretionary", value: 50000 },
+  { sector: "Consumer Staples", value: 80000 },
+  { sector: "Energy", value: 70000 },
+  { sector: "Finance", value: 170000 },
+  { sector: "Healthcare", value: 100000 },
+  { sector: "Industrials", value: 100000 },
+  { sector: "Materials", value: 20000 },
+  { sector: "Real Estate", value: 10000 },
+  { sector: "Technology", value: 110000 },
+  { sector: "Utilities", value: 30000 },
+  { sector: "Cash", value: 0 },
 
   // ... other sectors
 ];
 
 export default function IndexPage() {
+  // Function to handle updates from AssetSlider
+  const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
+    // Handle the updated data from AssetSlider
+    console.log('Updated Portfolio Data:', updatedData);
+  };
     return (
         <main className="p-4 md:p-1 mx-auto max-w-7xl">
             <Card className="mt-6">
@@ -51,6 +62,10 @@ export default function IndexPage() {
 
                  <Card title="S&P500 Donut Chart">
                     <DonutChart data={SPData1} />
+                    </Card>
+
+                  <Card title="Asset Slider ">
+                  <AssetSlider financialData={SPData1} onPortfolioUpdate={handlePortfolioUpdate} />
                     </Card>
 
                 {/* More components as needed */}
