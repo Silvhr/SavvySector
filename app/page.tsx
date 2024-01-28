@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import axios from 'axios';
 import { Card, Title } from '@tremor/react';
 import { useState } from 'react';
+import LineChart from './linechart';
 
 // Define interfaces
 interface HistoricalData {
@@ -34,16 +35,34 @@ const fetchData = async () => {
 export default function IndexPage({ searchParams }: { searchParams: { q: string } }) {
   const { data: historicalDataJSON, isError } = useQuery('historicalData', fetchData);
 
-  console.log(historicalDataJSON);
+  // console.log(historicalDataJSON?.keys);
+  console.log(JSON.stringify(historicalDataJSON, null, 2));
+  if (historicalDataJSON) { 
+    console.log(historicalDataJSON["historicalDataJSON"]);
+  }
+  
 
   if (isError) {
     console.error('Error fetching data:', isError);
   }
 
-  // const historicalData = Object.entries(historicalDataJSON).map(([time, value]) => ({
-  //   time,
-  //   value,
-  // }));
+//   const [hist, setHist] = useState<HistoricalData[]>([]);
+  let hist = [];
+
+  if (historicalDataJSON) { 
+    const historicalData = Object.entries(historicalDataJSON["historicalDataJSON"]).map(([time, value]) => ({
+        time,
+        value,
+    }));
+    
+    // setHist(historicalData);
+    hist = historicalData;
+  }
+
+
+  
+
+
 
   return (
 
@@ -60,7 +79,8 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
           {/* <Carousel /> */}
         </Card>
         <Card>
-          {/* <LineChart data={historicalData} /> */}
+            {hist && <LineChart data={hist}/>}
+          {/* <LineChart data={hist} /> */}
         </Card>
       </main>
       
