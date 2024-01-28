@@ -36,7 +36,7 @@ const LineChart: React.FC<LineChartProps> = ({data}) => {
     },
     series: [
       {
-        name: 'Series 1',
+        name: 'Price',
         data: series,
       },
     ],
