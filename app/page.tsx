@@ -2,6 +2,7 @@ import { sql } from '@vercel/postgres';
 import { Card, Title, Text } from '@tremor/react';
 import Search from './search';
 import UsersTable from './table';
+import LineChart from './linechart';
 
 interface User {
   id: number;
@@ -35,6 +36,9 @@ export default async function IndexPage({
         {/* Macro Information components */}
       </Card>
       {/* <Carousel /> */}
+      </Card>
+      <Card>
+        <LineChart />
       </Card>
     </main>
   );
