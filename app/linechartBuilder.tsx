@@ -45,13 +45,21 @@ const fetchData = async (sector: string, start: string, end:string) => {
 
 const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear}) => {
 
+    // console.log(currentYear);
+
     const [value, setValue] = useAtom(valueAtom);
+    
+    if (currentYear > 2009) { 
+        currentYear = 2009;
+    }
 
     const start = String(currentYear) + "-01-01";
     const end = String(currentYear) + "-12-31"
 
+    console.log(start, end);
+
     // fetch data
-  const { data: voxDataJSON, error: voxError } = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
+  const { data: voxDataJSON, error: voxError} = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
   const { data: xlbDataJSON, error: xlbError} = useQuery('xlbDataQuery', () => fetchData("XLB", start, end));
   const { data: xleDataJSON, error: xleError} = useQuery('xleDataQuery', () => fetchData("XLE", start, end));
   const { data: xlfDataJSON, error: xlfError} = useQuery('xlfDataQuery', () => fetchData("XLF", start, end));
@@ -181,7 +189,7 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
 
     let roundedEndOfYear: number = Math.round(end_of_year * 10000) / 10000;
 
-    console.log(roundedEndOfYear);
+    // console.log(roundedEndOfYear);
 
     
 

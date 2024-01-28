@@ -157,6 +157,8 @@ export default function Page() {
     console.log(error);
   }
 
+
+
   const [lineChartState, setLineChartState] = useState(SPData1);
 
   // State for holding financial data
@@ -207,16 +209,16 @@ export default function Page() {
         setDonutState(SPData5);
         setFinancialDataState(SPData5);
     }
-    else if (currentYear == 2009) { 
-        setLineChartState(financialDataState);
-        setDonutState(SPData6);
-        setFinancialDataState(SPData6);
-    }
-    else if (currentYear == 2010) { 
-        setLineChartState(financialDataState);
-        setDonutState(SPData7);
-        setFinancialDataState(SPData7);
-    }
+    // else if (currentYear == 2009) { 
+    //     setLineChartState(financialDataState);
+    //     setDonutState(SPData6);
+    //     setFinancialDataState(SPData6);
+    // }
+    // else if (currentYear == 2010) { 
+    //     setLineChartState(financialDataState);
+    //     setDonutState(SPData7);
+    //     setFinancialDataState(SPData7);
+    // }
     
 
 
