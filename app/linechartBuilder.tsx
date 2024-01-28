@@ -21,7 +21,9 @@ const fetchData = async (sector: string) => {
     try {
       const response = await axios.get('/api/getHistoricalData', {
         params: {
-          sector: sector
+          sector: sector,
+          startDate: "2005-01-01",
+          endDate: "2009-12-01",
         },
       });
       const data: HistoricalData[] = response.data;
@@ -81,18 +83,20 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights}) => {
 
   if (voxDataJSON && xlbDataJSON && xleDataJSON && xlfDataJSON && xliDataJSON && xlkDataJSON && xlpDataJSON && xluDataJSON && xlvDataJSON&& xlyDataJSON && xrtDataJSON) { 
 
+    console.log(voxDataJSON);
+
     // extract data if it exists
-    const voxData = Object.entries(voxDataJSON["voxDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlbData = Object.entries(xlbDataJSON["xlbDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xleData = Object.entries(xleDataJSON["xleDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlfData = Object.entries(xlfDataJSON["xlfDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xliData = Object.entries(xliDataJSON["xliDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlkData = Object.entries(xlkDataJSON["xlkDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlpData = Object.entries(xlpDataJSON["xlpDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xluData = Object.entries(xluDataJSON["xluDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlvData = Object.entries(xlvDataJSON["xlvDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlyData = Object.entries(xlyDataJSON["xlyDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xrtData = Object.entries(xrtDataJSON["xrtDataJSON" as any]).map(([time, value]) => ({time,value,}));
+    const voxData = Object.entries(voxDataJSON).map(([time, value]) => ({time,value,}));
+    const xlbData = Object.entries(xlbDataJSON).map(([time, value]) => ({time,value,}));
+    const xleData = Object.entries(xleDataJSON).map(([time, value]) => ({time,value,}));
+    const xlfData = Object.entries(xlfDataJSON).map(([time, value]) => ({time,value,}));
+    const xliData = Object.entries(xliDataJSON).map(([time, value]) => ({time,value,}));
+    const xlkData = Object.entries(xlkDataJSON).map(([time, value]) => ({time,value,}));
+    const xlpData = Object.entries(xlpDataJSON).map(([time, value]) => ({time,value,}));
+    const xluData = Object.entries(xluDataJSON).map(([time, value]) => ({time,value,}));
+    const xlvData = Object.entries(xlvDataJSON).map(([time, value]) => ({time,value,}));
+    const xlyData = Object.entries(xlyDataJSON).map(([time, value]) => ({time,value,}));
+    const xrtData = Object.entries(xrtDataJSON).map(([time, value]) => ({time,value,}));
     
     vox = voxData;
     xlb = xlbData

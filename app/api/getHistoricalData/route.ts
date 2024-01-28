@@ -15,42 +15,155 @@ import xrtDataJSON from "./XRT-data.json"
 export async function GET(req: NextRequest, res: NextResponse) {
 
     const sector = req.nextUrl.searchParams.get("sector")!;
+    const startDateString = req.nextUrl.searchParams.get("startDate");
+    const endDateString = req.nextUrl.searchParams.get("endDate");
+
     if (sector === "VOX") {
-        return new Response(JSON.stringify(voxDataJSON), { headers: { "content-type": "application/json" } })
+
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(voxDataJSON.voxDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+
     }
     else if (sector === "XLB") { 
-        return new Response(JSON.stringify(xlbDataJSON), { headers: { "content-type": "application/json" } })
-    }
-    else if (sector === "XLU") { 
-        return new Response(JSON.stringify(xluDataJSON), { headers: { "content-type": "application/json" } })
+
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xlbDataJSON.xlbDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLE") { 
-        return new Response(JSON.stringify(xleDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xleDataJSON.xleDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLF") { 
-        return new Response(JSON.stringify(xlfDataJSON), { headers: { "content-type": "application/json" } })
+       
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xlfDataJSON.xlfDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLI") { 
-        return new Response(JSON.stringify(xliDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xliDataJSON.xliDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLK") { 
-        return new Response(JSON.stringify(xlkDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xlkDataJSON.xlkDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLP") { 
-        return new Response(JSON.stringify(xlpDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xlpDataJSON.xlpDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLU") { 
-        return new Response(JSON.stringify(xluDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xluDataJSON.xluDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLV") { 
-        return new Response(JSON.stringify(xlvDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xlvDataJSON.xlvDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XLY") { 
-        return new Response(JSON.stringify(xlyDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xlyDataJSON.xlyDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     else if (sector === "XRT") { 
-        return new Response(JSON.stringify(xrtDataJSON), { headers: { "content-type": "application/json" } })
+        
+        if (!startDateString || !endDateString) {
+            return new Response("Start date and end date are required.", { status: 400 });
+        }
+        const startDate = new Date(startDateString);
+        const endDate = new Date(endDateString);
+
+        const filteredData = filterDataByDateRange(xrtDataJSON.xrtDataJSON, startDate, endDate);
+        return new Response(JSON.stringify(filteredData), { headers: { "content-type": "application/json" } });
+        
     }
     
  
+}
+
+function filterDataByDateRange(data: Record<string, number>, startDate: Date, endDate: Date): Record<string, number> {
+    const filteredData: Record<string, number> = {};
+
+    for (const date in data) {
+        const currentDate = new Date(date);
+
+        if (currentDate >= startDate && currentDate <= endDate) {
+            filteredData[date] = data[date];
+        }
+    }
+
+    return filteredData;
 }
