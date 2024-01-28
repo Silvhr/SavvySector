@@ -14,14 +14,18 @@ interface HistoricalData {
 
 interface LineChartBuilderProps {
     weights: number[];
+    start: string;
+    end: string;
 }
 
 // Define a function to fetch data using Axios
-const fetchData = async (sector: string) => {
+const fetchData = async (sector: string, start: string, end:string) => {
     try {
       const response = await axios.get('/api/getHistoricalData', {
         params: {
-          sector: sector
+          sector: sector,
+          startDate: start,
+          endDate: end,
         },
       });
       const data: HistoricalData[] = response.data;
@@ -34,20 +38,20 @@ const fetchData = async (sector: string) => {
   
 
 
-const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights}) => {
+const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}) => {
 
     // fetch data
-  const { data: voxDataJSON, error: voxError } = useQuery('voxDataQuery', () => fetchData("VOX"));
-  const { data: xlbDataJSON, error: xlbError} = useQuery('xlbDataQuery', () => fetchData("XLB"));
-  const { data: xleDataJSON, error: xleError} = useQuery('xleDataQuery', () => fetchData("XLE"));
-  const { data: xlfDataJSON, error: xlfError} = useQuery('xlfDataQuery', () => fetchData("XLF"));
-  const { data: xliDataJSON, error: xliError} = useQuery('xliDataQuery', () => fetchData("XLI"));
-  const { data: xlkDataJSON, error: xlkError} = useQuery('xlkDataQuery', () => fetchData("XLK"));
-  const { data: xlpDataJSON, error: xlpError} = useQuery('xlpDataQuery', () => fetchData("XLP"));
-  const { data: xluDataJSON, error: xluError} = useQuery('xluDataQuery', () => fetchData("XLU"));
-  const { data: xlvDataJSON, error: xlvError} = useQuery('xlvDataQuery', () => fetchData("XLV"));
-  const { data: xlyDataJSON, error: xlyError} = useQuery('xlyDataQuery', () => fetchData("XLY"));
-  const { data: xrtDataJSON, error: xrtError } = useQuery('xrtDataQuery', () => fetchData("XRT"));
+  const { data: voxDataJSON, error: voxError } = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
+  const { data: xlbDataJSON, error: xlbError} = useQuery('xlbDataQuery', () => fetchData("XLB", start, end));
+  const { data: xleDataJSON, error: xleError} = useQuery('xleDataQuery', () => fetchData("XLE", start, end));
+  const { data: xlfDataJSON, error: xlfError} = useQuery('xlfDataQuery', () => fetchData("XLF", start, end));
+  const { data: xliDataJSON, error: xliError} = useQuery('xliDataQuery', () => fetchData("XLI", start, end));
+  const { data: xlkDataJSON, error: xlkError} = useQuery('xlkDataQuery', () => fetchData("XLK", start, end));
+  const { data: xlpDataJSON, error: xlpError} = useQuery('xlpDataQuery', () => fetchData("XLP", start, end));
+  const { data: xluDataJSON, error: xluError} = useQuery('xluDataQuery', () => fetchData("XLU", start, end));
+  const { data: xlvDataJSON, error: xlvError} = useQuery('xlvDataQuery', () => fetchData("XLV", start, end));
+  const { data: xlyDataJSON, error: xlyError} = useQuery('xlyDataQuery', () => fetchData("XLY", start, end));
+  const { data: xrtDataJSON, error: xrtError } = useQuery('xrtDataQuery', () => fetchData("XRT", start, end));
 
   // console.log(xluDataJSON);
 
@@ -81,18 +85,20 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights}) => {
 
   if (voxDataJSON && xlbDataJSON && xleDataJSON && xlfDataJSON && xliDataJSON && xlkDataJSON && xlpDataJSON && xluDataJSON && xlvDataJSON&& xlyDataJSON && xrtDataJSON) { 
 
+    
+
     // extract data if it exists
-    const voxData = Object.entries(voxDataJSON["voxDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlbData = Object.entries(xlbDataJSON["xlbDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xleData = Object.entries(xleDataJSON["xleDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlfData = Object.entries(xlfDataJSON["xlfDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xliData = Object.entries(xliDataJSON["xliDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlkData = Object.entries(xlkDataJSON["xlkDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlpData = Object.entries(xlpDataJSON["xlpDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xluData = Object.entries(xluDataJSON["xluDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlvData = Object.entries(xlvDataJSON["xlvDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xlyData = Object.entries(xlyDataJSON["xlyDataJSON" as any]).map(([time, value]) => ({time,value,}));
-    const xrtData = Object.entries(xrtDataJSON["xrtDataJSON" as any]).map(([time, value]) => ({time,value,}));
+    const voxData = Object.entries(voxDataJSON).map(([time, value]) => ({time,value,}));
+    const xlbData = Object.entries(xlbDataJSON).map(([time, value]) => ({time,value,}));
+    const xleData = Object.entries(xleDataJSON).map(([time, value]) => ({time,value,}));
+    const xlfData = Object.entries(xlfDataJSON).map(([time, value]) => ({time,value,}));
+    const xliData = Object.entries(xliDataJSON).map(([time, value]) => ({time,value,}));
+    const xlkData = Object.entries(xlkDataJSON).map(([time, value]) => ({time,value,}));
+    const xlpData = Object.entries(xlpDataJSON).map(([time, value]) => ({time,value,}));
+    const xluData = Object.entries(xluDataJSON).map(([time, value]) => ({time,value,}));
+    const xlvData = Object.entries(xlvDataJSON).map(([time, value]) => ({time,value,}));
+    const xlyData = Object.entries(xlyDataJSON).map(([time, value]) => ({time,value,}));
+    const xrtData = Object.entries(xrtDataJSON).map(([time, value]) => ({time,value,}));
     
     vox = voxData;
     xlb = xlbData

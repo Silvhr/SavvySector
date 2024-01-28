@@ -65,7 +65,6 @@ export default function Page() {
     console.log(error);
   }
 
-  const weights: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
     console.log('Updating Portfolio Data:', updatedData); // Log new data
@@ -85,6 +84,9 @@ export default function Page() {
       setCurrentYear(startYear);
     }
   };
+    const weights: number[] = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const start: string = "2005-01-01";
+    const end: string = "2006-01-01";
 
   return (
     <main className="p-4 md:p-1 mx-auto max-w-7xl">
@@ -156,7 +158,7 @@ export default function Page() {
           <DonutChart data={SPData1} />
         </Card>
         <Card>
-          <LineChartBuilder weights={weights} />
+            <LineChartBuilder weights={weights} start={start} end={end}/>
           {/* <LineChart data={hist} /> */}
         </Card>
 
