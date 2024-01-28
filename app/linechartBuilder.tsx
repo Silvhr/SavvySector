@@ -128,20 +128,31 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
 
 
 
+    const vox_shares = (weights[0].value / vox[0].value);
+    const xlb_shares = (weights[7].value / xlb[0].value);
+    const xle_shares = (weights[3].value / xle[0].value);
+    const xlf_shares = (weights[4].value / xlf[0].value);
+    const xli_shares = (weights[6].value / xli[0].value);
+    const xlk_shares = (weights[9].value / xlk[0].value);
+    const xlp_shares = (weights[2].value / xlp[0].value);
+    const xlu_shares = (weights[10].value / xlu[0].value);
+    const xlv_shares = (weights[5].value / xlv[0].value);
+    const xly_shares = (weights[1].value / xly[0].value);
+    const xrt_shares = (weights[8].value / xrt[0].value);
 
 
     // apply coefficients
-    for (const date in vox) { vox[date].value *= (weights[0].value / total); }
-    for (const date in xlb) { xlb[date].value *= (weights[1].value / total); }
-    for (const date in xle) { xle[date].value *= (weights[2].value / total); }
-    for (const date in xlf) { xlf[date].value *= (weights[3].value / total); }
-    for (const date in xli) { xli[date].value *= (weights[4].value / total); }
-    for (const date in xlk) { xlk[date].value *= (weights[5].value / total); }
-    for (const date in xlp) { xlp[date].value *= (weights[6].value / total); }
-    for (const date in xlu) { xlu[date].value *= (weights[7].value / total); }
-    for (const date in xlv) { xlv[date].value *= (weights[8].value / total); }
-    for (const date in xly) { xly[date].value *= (weights[9].value / total); }
-    for (const date in xrt) { xrt[date].value *= (weights[10].value / total); }
+    for (const date in vox) { vox[date].value = vox_shares * vox[date].value; }
+    for (const date in xlb) { xlb[date].value = xlb_shares * xlb[date].value; }
+    for (const date in xle) { xle[date].value = xle_shares * xle[date].value; }
+    for (const date in xlf) { xlf[date].value = xlf_shares * xlf[date].value; }
+    for (const date in xli) { xli[date].value = xli_shares * xli[date].value; }
+    for (const date in xlk) { xlk[date].value = xlk_shares * xlk[date].value; }
+    for (const date in xlp) { xlp[date].value = xlp_shares * xlp[date].value; }
+    for (const date in xlu) { xlu[date].value = xlu_shares * xlu[date].value; }
+    for (const date in xlv) { xlv[date].value = xlv_shares * xlv[date].value; }
+    for (const date in xly) { xly[date].value = xly_shares * xly[date].value; }
+    for (const date in xrt) { xrt[date].value = xrt_shares * xrt[date].value; }
 
     // last values
     console.log(vox[vox.length - 1].value);
