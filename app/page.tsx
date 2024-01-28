@@ -113,39 +113,39 @@ const SPData5 = [
 ];
 
 const SPData6 = [
-    { sector: "Communication Services", value: 320000 },
-    { sector: "Consumer Discretionary", value: 60000 },
-    { sector: "Consumer Staples", value: 80000 },
-    { sector: "Energy", value: 70000 },
-    { sector: "Finance", value: 120000 },
-    { sector: "Healthcare", value: 80000 },
-    { sector: "Industrials", value: 80000 },
-    { sector: "Materials", value: 20000 },
-    { sector: "Real Estate", value: 120000 },
-    { sector: "Technology", value: 20000 },
-    { sector: "Utilities", value: 30000 },
-    { sector: "Cash", value: 0 },
+  { sector: 'Communication Services', value: 320000 },
+  { sector: 'Consumer Discretionary', value: 60000 },
+  { sector: 'Consumer Staples', value: 80000 },
+  { sector: 'Energy', value: 70000 },
+  { sector: 'Finance', value: 120000 },
+  { sector: 'Healthcare', value: 80000 },
+  { sector: 'Industrials', value: 80000 },
+  { sector: 'Materials', value: 20000 },
+  { sector: 'Real Estate', value: 120000 },
+  { sector: 'Technology', value: 20000 },
+  { sector: 'Utilities', value: 30000 },
+  { sector: 'Cash', value: 0 }
 ];
 
 const SPData7 = [
-{ sector: "Communication Services", value: 330000 },
-{ sector: "Consumer Discretionary", value: 60000 },
-{ sector: "Consumer Staples", value: 90000 },
-{ sector: "Energy", value: 70000 },
-{ sector: "Finance", value: 100000 },
-{ sector: "Healthcare", value: 80000 },
-{ sector: "Industrials", value: 70000 },
-{ sector: "Materials", value: 20000 },
-{ sector: "Real Estate", value: 20000 },
-{ sector: "Technology", value: 130000 },
-{ sector: "Utilities", value: 30000 },
-{ sector: "Cash", value: 0 },
+  { sector: 'Communication Services', value: 330000 },
+  { sector: 'Consumer Discretionary', value: 60000 },
+  { sector: 'Consumer Staples', value: 90000 },
+  { sector: 'Energy', value: 70000 },
+  { sector: 'Finance', value: 100000 },
+  { sector: 'Healthcare', value: 80000 },
+  { sector: 'Industrials', value: 70000 },
+  { sector: 'Materials', value: 20000 },
+  { sector: 'Real Estate', value: 20000 },
+  { sector: 'Technology', value: 130000 },
+  { sector: 'Utilities', value: 30000 },
+  { sector: 'Cash', value: 0 }
 ];
 
 const fetchData = async (year: number) => {
   try {
-    console.log('yo yo yo');
-    console.log(year);
+    // console.log('yo yo yo');
+    // console.log(year);
     const response = await axios.get('/api/headlines', {
       params: {
         year: year
@@ -170,15 +170,13 @@ export default function Page() {
     refetch,
     isLoading
   } = useQuery('headlines', () => fetchData(currentYear), {
-    enabled: false, // Set enabled to false to disable automatic refetching
+    enabled: false // Set enabled to false to disable automatic refetching
   });
   if (error) {
     console.log(error);
   }
 
   const [donutState, setDonutState] = useState(SPData1);
-
-
 
   const [lineChartState, setLineChartState] = useState(SPData1);
 
@@ -194,7 +192,6 @@ export default function Page() {
     if (currentYear < startYear + 4) {
       setCurrentYear((prevYear) => prevYear + 1);
       setTimeout(() => {
-        console.log("wtf is going on")
         refetch();
       }, 250);
       // console.log(currentYear);
@@ -207,56 +204,42 @@ export default function Page() {
       console.log('game over');
     }
 
-
-    if (currentYear == 2005) { 
-        setLineChartState(financialDataState);
-        setDonutState(SPData2);
-        setFinancialDataState(SPData2);
+    if (currentYear == 2005) {
+      setLineChartState(financialDataState);
+      setDonutState(SPData2);
+      setFinancialDataState(SPData2);
+    } else if (currentYear == 2006) {
+      setLineChartState(financialDataState);
+      setDonutState(SPData3);
+      setFinancialDataState(SPData3);
+    } else if (currentYear == 2007) {
+      setLineChartState(financialDataState);
+      setDonutState(SPData4);
+      setFinancialDataState(SPData4);
+    } else if (currentYear == 2008) {
+      setLineChartState(financialDataState);
+      setDonutState(SPData5);
+      setFinancialDataState(SPData5);
     }
-    else if (currentYear == 2006) {
-        setLineChartState(financialDataState);
-        setDonutState(SPData3);
-        setFinancialDataState(SPData3);
-    }
-    else if (currentYear == 2007) { 
-        setLineChartState(financialDataState);
-        setDonutState(SPData4);
-        setFinancialDataState(SPData4);
-    }
-    else if (currentYear == 2008) { 
-        setLineChartState(financialDataState);
-        setDonutState(SPData5);
-        setFinancialDataState(SPData5);
-    }
-    // else if (currentYear == 2009) { 
+    // else if (currentYear == 2009) {
     //     setLineChartState(financialDataState);
     //     setDonutState(SPData6);
     //     setFinancialDataState(SPData6);
     // }
-    // else if (currentYear == 2010) { 
+    // else if (currentYear == 2010) {
     //     setLineChartState(financialDataState);
     //     setDonutState(SPData7);
     //     setFinancialDataState(SPData7);
     // }
-    
-
-
-
-
-
   };
   const handleGameOver = () => {
     setCurrentYear(startYear);
     setGameOver(false);
     setTimeout(() => {
-      console.log("wtf is going on")
       refetch();
-    }
-    , 1000);
+    }, 1000);
   };
-    const [weights, setWeights] = useState([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    const [start, setStart] = useState("2005-01-01");
-    const [end, setEnd] = useState("2006-01-01");
+  const [weights, setWeights] = useState([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   return (
     <main className="p-4 md:p-1 mx-auto max-w-7xl">
@@ -319,7 +302,9 @@ export default function Page() {
                     <div className="p-1">
                       <Card>
                         <CardContent className="flex aspect-square items-center justify-center p-6">
-                          <a href={headline.url}><span className="">{headline.title}</span></a>
+                          <a href={headline.url}>
+                            <span className="">{headline.title}</span>
+                          </a>
                         </CardContent>
                       </Card>
                     </div>
@@ -336,20 +321,27 @@ export default function Page() {
               className="flex flex-col justify-center items-center"
             >
               <h1 className="text-center text-3xl">Macro Information</h1>
-              <h2 className="text-center">Current Year: <b>{currentYear}</b></h2>
+              <h2 className="text-center">
+                Current Year: <b>{currentYear}</b>
+              </h2>
             </Card>
           </div>
         </Card>
       </div>
       <div>
-        <Card title="Financial Sectors Donut Chart">
-          <DonutChart data={financialDataState} />
-        </Card>
-        <Card title="S&P500 Donut Chart">
-          <DonutChart data={donutState} />
-        </Card>
+        <div className="flex ">
+          <Card title="Financial Sectors Donut Chart">
+            <DonutChart data={financialDataState} />
+          </Card>
+          <Card title="S&P500 Donut Chart">
+            <DonutChart data={donutState} />
+          </Card>
+        </div>
         <Card>
-            <LineChartBuilder weights={lineChartState} currentYear={currentYear}/>
+          <LineChartBuilder
+            weights={lineChartState}
+            currentYear={currentYear}
+          />
           {/* <LineChart data={hist} /> */}
         </Card>
 

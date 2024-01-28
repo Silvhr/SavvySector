@@ -52,10 +52,6 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
 
     const [value, setValue] = useAtom(valueAtom);
     
-    if (currentYear > 2009) { 
-        currentYear = 2009;
-    }
-
     const start = String(currentYear) + "-01-01";
     const end = String(currentYear) + "-12-31"
 
@@ -106,7 +102,7 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
   
     // ... other conditions ...
   
-  }, [currentYear]);
+  }, [currentYear, value, voxRefetch, xlbRefetch, xleRefetch, xlfRefetch, xlkRefetch, xliRefetch, xlpRefetch, xluRefetch, xlvRefetch, xlyRefetch, xrtRefetch]);
 
   //   const [hist, setHist] = useState<HistoricalData[]>([]);
   let vox: any = [];
@@ -158,6 +154,10 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
         total += sector.value;
     }
 
+    //check if any sector is undefined
+    if(vox[0] === undefined || xlb[0] === undefined || xle[0] === undefined || xlf[0] === undefined || xli[0] === undefined || xlk[0] === undefined || xlp[0] === undefined || xlu[0] === undefined || xlv[0] === undefined || xly[0] === undefined || xrt[0] === undefined){
+      return <div>loading</div>
+    }
 
 
     const vox_shares = (weights[0].value / vox[0].value);
