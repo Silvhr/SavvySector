@@ -9,23 +9,7 @@ interface FinancialSector {
   value: number;
 }
 
-// Example static data
-const financialData = [
-  { sector: "Communication Services", value: 0 },
-  { sector: "Consumer Discretionary", value: 0 },
-  { sector: "Consumer Staples", value: 0 },
-  { sector: "Energy", value: 30 },
-  { sector: "Finance", value: 30 },
-  { sector: "Healthcare", value: 15 },
-  { sector: "Industrials", value: 15 },
-  { sector: "Materials", value: 20 },
-  { sector: "Real Estate", value: 20 },
-  { sector: "Technology", value: 15 },
-  { sector: "Utilities", value: 15 },
-  { sector: "Cash", value: 80 },
-];
-
-// Example static data
+//Default data for start of year 0
 const SPData1 = [
   { sector: "Communication Services", value: 260000 },
   { sector: "Consumer Discretionary", value: 50000 },
@@ -39,13 +23,11 @@ const SPData1 = [
   { sector: "Technology", value: 110000 },
   { sector: "Utilities", value: 30000 },
   { sector: "Cash", value: 0 },
-
-  // ... other sectors
 ];
 
 export default function IndexPage() {
   // State for holding financial data
-  const [financialDataState, setFinancialDataState] = useState(financialData);
+  const [financialDataState, setFinancialDataState] = useState(SPData1);
 
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
     console.log('Updating Portfolio Data:', updatedData); // Log new data
