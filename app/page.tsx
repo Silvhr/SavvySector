@@ -214,6 +214,10 @@ export default function Page() {
         </Card>
       </div>
       <div>
+      <Card>
+            <LineChartBuilder weights={weights} start={start} end={end}/>
+          {/* <LineChart data={hist} /> */}
+        </Card>
 
         <div className='flex'>
   <Card title="Financial Sectors Donut Chart">
@@ -227,10 +231,7 @@ export default function Page() {
   </Card>
 </div>
 
-        <Card>
-            <LineChartBuilder weights={weights} start={start} end={end}/>
-          {/* <LineChart data={hist} /> */}
-        </Card>
+        
 
         <Card title="Asset Slider ">
           <AssetSlider
