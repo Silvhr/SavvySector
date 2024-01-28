@@ -20,6 +20,8 @@ interface HistoricalData {
 // Component
 export default function IndexPage({ searchParams }: { searchParams: { q: string } }) {
 
+    const weights: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
   return (
 
       <main className="p-4 md:p-1 mx-auto max-w-7xl">
@@ -35,7 +37,7 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
           {/* <Carousel /> */}
         </Card>
         <Card>
-            <LineChartBuilder />
+            <LineChartBuilder weights={weights}/>
           {/* <LineChart data={hist} /> */}
         </Card>
       </main>

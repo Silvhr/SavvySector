@@ -13,9 +13,7 @@ interface LineChartProps {
     data: HistoricalData[];
 }
 
-interface LineChartProps {
-  // Define any props your component may receive
-}
+
 
 const LineChart: React.FC<LineChartProps> = ({data}) => {
 
