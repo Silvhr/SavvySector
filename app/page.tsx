@@ -18,7 +18,7 @@ const fetchData = async () => {
   try {
     const response = await axios.get('/api/getHistoricalData', {
       params: {
-        // You can add query parameters if needed
+        
       },
     });
     const data: HistoricalData[] = response.data;
@@ -37,9 +37,9 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
 
   // console.log(historicalDataJSON?.keys);
   console.log(JSON.stringify(historicalDataJSON, null, 2));
-  if (historicalDataJSON) { 
-    console.log(historicalDataJSON["historicalDataJSON" as any]);
-  }
+//   if (historicalDataJSON) { 
+//     console.log(historicalDataJSON["historicalDataJSON" as any]);
+//   }
   
 
   if (isError) {
@@ -57,6 +57,12 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
     
     // setHist(historicalData);
     hist = historicalData;
+    // console.log(hist);
+    for (const date in hist) { 
+        console.log(hist[date]);
+        hist[date].value *= 75
+    }
+
   }
 
 
