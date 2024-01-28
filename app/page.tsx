@@ -14,11 +14,11 @@ interface HistoricalData {
 }
 
 // Define a function to fetch data using Axios
-const fetchData = async () => {
+const fetchData = async (sector: string) => {
   try {
     const response = await axios.get('/api/getHistoricalData', {
       params: {
-        
+        sector: sector
       },
     });
     const data: HistoricalData[] = response.data;
@@ -33,35 +33,45 @@ const fetchData = async () => {
 
 // Component
 export default function IndexPage({ searchParams }: { searchParams: { q: string } }) {
-  const { data: historicalDataJSON, isError } = useQuery('historicalData', fetchData);
+  const { data: voxDataJSON, isError } = useQuery('voxDataQuery', () => fetchData("VOX"));
+  const { data: xluDataJSON, error } = useQuery('xluDataQuery', () => fetchData("XLU"));
 
-  // console.log(historicalDataJSON?.keys);
-  console.log(JSON.stringify(historicalDataJSON, null, 2));
-//   if (historicalDataJSON) { 
-//     console.log(historicalDataJSON["historicalDataJSON" as any]);
-//   }
-  
+  console.log(xluDataJSON);
 
   if (isError) {
     console.error('Error fetching data:', isError);
   }
 
-//   const [hist, setHist] = useState<HistoricalData[]>([]);
-  let hist: any = [];
+  if (error) { 
+    console.error('Error fetching data:', error);
+  }
 
-  if (historicalDataJSON) { 
-    const historicalData = Object.entries(historicalDataJSON["historicalDataJSON" as any]).map(([time, value]) => ({
-        time,
-        value,
-    }));
+//   const [hist, setHist] = useState<HistoricalData[]>([]);
+  let vox: any = [];
+  let xlu: any = [];
+
+  if (voxDataJSON && xluDataJSON) { 
+    const voxData = Object.entries(voxDataJSON["voxDataJSON" as any]).map(([time, value]) => ({time,value,}));
+    const xluData = Object.entries(xluDataJSON["xluDataJSON" as any]).map(([time, value]) => ({time,value,}));
     
     // setHist(historicalData);
-    hist = historicalData;
+    vox = voxData;
+    xlu = xluData;
     // console.log(hist);
-    for (const date in hist) { 
-        console.log(hist[date]);
-        hist[date].value *= 75
+    for (const date in vox) { 
+        // console.log(vox[date]);
+        vox[date].value *= 5
     }
+
+    for (const date in xlu) { 
+        xlu[date].value *= 0;
+    }
+
+    for (const date in vox) { 
+        // console.log(vox[date]);
+        vox[date].value += xlu[date].value;
+    }
+    
 
   }
 
@@ -85,7 +95,7 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
           {/* <Carousel /> */}
         </Card>
         <Card>
-            {hist && <LineChart data={hist}/>}
+            {vox && <LineChart data={vox}/>}
           {/* <LineChart data={hist} /> */}
         </Card>
       </main>
