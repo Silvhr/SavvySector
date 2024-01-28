@@ -38,7 +38,7 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
   // console.log(historicalDataJSON?.keys);
   console.log(JSON.stringify(historicalDataJSON, null, 2));
   if (historicalDataJSON) { 
-    console.log(historicalDataJSON["historicalDataJSON"]);
+    console.log(historicalDataJSON["historicalDataJSON" as any]);
   }
   
 
@@ -47,10 +47,10 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
   }
 
 //   const [hist, setHist] = useState<HistoricalData[]>([]);
-  let hist = [];
+  let hist: any = [];
 
   if (historicalDataJSON) { 
-    const historicalData = Object.entries(historicalDataJSON["historicalDataJSON"]).map(([time, value]) => ({
+    const historicalData = Object.entries(historicalDataJSON["historicalDataJSON" as any]).map(([time, value]) => ({
         time,
         value,
     }));
