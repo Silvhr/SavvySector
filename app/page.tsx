@@ -112,6 +112,36 @@ const SPData5 = [
   { sector: 'Cash', value: 0 }
 ];
 
+const SPData6 = [
+    { sector: "Communication Services", value: 320000 },
+    { sector: "Consumer Discretionary", value: 60000 },
+    { sector: "Consumer Staples", value: 80000 },
+    { sector: "Energy", value: 70000 },
+    { sector: "Finance", value: 120000 },
+    { sector: "Healthcare", value: 80000 },
+    { sector: "Industrials", value: 80000 },
+    { sector: "Materials", value: 20000 },
+    { sector: "Real Estate", value: 120000 },
+    { sector: "Technology", value: 20000 },
+    { sector: "Utilities", value: 30000 },
+    { sector: "Cash", value: 0 },
+];
+
+const SPData7 = [
+{ sector: "Communication Services", value: 330000 },
+{ sector: "Consumer Discretionary", value: 60000 },
+{ sector: "Consumer Staples", value: 90000 },
+{ sector: "Energy", value: 70000 },
+{ sector: "Finance", value: 100000 },
+{ sector: "Healthcare", value: 80000 },
+{ sector: "Industrials", value: 70000 },
+{ sector: "Materials", value: 20000 },
+{ sector: "Real Estate", value: 20000 },
+{ sector: "Technology", value: 130000 },
+{ sector: "Utilities", value: 30000 },
+{ sector: "Cash", value: 0 },
+];
+
 const fetchData = async (year: number) => {
   try {
     console.log('yo yo yo');
@@ -146,6 +176,12 @@ export default function Page() {
     console.log(error);
   }
 
+  const [donutState, setDonutState] = useState(SPData1);
+
+
+
+  const [lineChartState, setLineChartState] = useState(SPData1);
+
   // State for holding financial data
 
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
@@ -170,6 +206,44 @@ export default function Page() {
       setGameOver(true);
       console.log('game over');
     }
+
+
+    if (currentYear == 2005) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData2);
+        setFinancialDataState(SPData2);
+    }
+    else if (currentYear == 2006) {
+        setLineChartState(financialDataState);
+        setDonutState(SPData3);
+        setFinancialDataState(SPData3);
+    }
+    else if (currentYear == 2007) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData4);
+        setFinancialDataState(SPData4);
+    }
+    else if (currentYear == 2008) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData5);
+        setFinancialDataState(SPData5);
+    }
+    // else if (currentYear == 2009) { 
+    //     setLineChartState(financialDataState);
+    //     setDonutState(SPData6);
+    //     setFinancialDataState(SPData6);
+    // }
+    // else if (currentYear == 2010) { 
+    //     setLineChartState(financialDataState);
+    //     setDonutState(SPData7);
+    //     setFinancialDataState(SPData7);
+    // }
+    
+
+
+
+
+
   };
   const handleGameOver = () => {
     setCurrentYear(startYear);
@@ -180,9 +254,9 @@ export default function Page() {
     }
     , 1000);
   };
-  const weights: number[] = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const start: string = '2005-01-01';
-  const end: string = '2006-01-01';
+    const [weights, setWeights] = useState([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const [start, setStart] = useState("2005-01-01");
+    const [end, setEnd] = useState("2006-01-01");
 
   return (
     <main className="p-4 md:p-1 mx-auto max-w-7xl">
@@ -272,15 +346,16 @@ export default function Page() {
           <DonutChart data={financialDataState} />
         </Card>
         <Card title="S&P500 Donut Chart">
-          <DonutChart data={SPData1} />
+          <DonutChart data={donutState} />
         </Card>
         <Card>
-          <LineChartBuilder weights={weights} start={start} end={end} />
+            <LineChartBuilder weights={lineChartState} currentYear={currentYear}/>
+          {/* <LineChart data={hist} /> */}
         </Card>
 
         <Card title="Asset Slider ">
           <AssetSlider
-            financialData={SPData1}
+            financialData={donutState}
             onPortfolioUpdate={handlePortfolioUpdate}
           />
         </Card>

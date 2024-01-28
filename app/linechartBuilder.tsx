@@ -4,7 +4,10 @@ import LineChart from './linechart';
 import React, { ReactNode, useEffect, useState } from 'react';
 import axios from "axios"
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useAtom } from 'jotai'
+import { valueAtom } from "@/components/atoms/valueAtom"
 
+export const dynamic = "force-dynamic";
 
 
 interface HistoricalData {
@@ -12,15 +15,20 @@ interface HistoricalData {
     value: number;
 }
 
+interface FinancialSector {
+    sector: string;
+    value: number;
+  }
+
 interface LineChartBuilderProps {
-    weights: number[];
-    start: string;
-    end: string;
+    weights: FinancialSector[];
+    currentYear: number;
 }
 
 // Define a function to fetch data using Axios
 const fetchData = async (sector: string, start: string, end:string) => {
     try {
+        console.log(start, end);
       const response = await axios.get('/api/getHistoricalData', {
         params: {
           sector: sector,
@@ -38,20 +46,33 @@ const fetchData = async (sector: string, start: string, end:string) => {
   
 
 
-const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}) => {
+const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear}) => {
+
+    // console.log(currentYear);
+
+    const [value, setValue] = useAtom(valueAtom);
+    
+    if (currentYear > 2009) { 
+        currentYear = 2009;
+    }
+
+    const start = String(currentYear) + "-01-01";
+    const end = String(currentYear) + "-12-31"
+
+    console.log(start, end);
 
     // fetch data
-  const { data: voxDataJSON, error: voxError } = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
-  const { data: xlbDataJSON, error: xlbError} = useQuery('xlbDataQuery', () => fetchData("XLB", start, end));
-  const { data: xleDataJSON, error: xleError} = useQuery('xleDataQuery', () => fetchData("XLE", start, end));
-  const { data: xlfDataJSON, error: xlfError} = useQuery('xlfDataQuery', () => fetchData("XLF", start, end));
-  const { data: xliDataJSON, error: xliError} = useQuery('xliDataQuery', () => fetchData("XLI", start, end));
-  const { data: xlkDataJSON, error: xlkError} = useQuery('xlkDataQuery', () => fetchData("XLK", start, end));
-  const { data: xlpDataJSON, error: xlpError} = useQuery('xlpDataQuery', () => fetchData("XLP", start, end));
-  const { data: xluDataJSON, error: xluError} = useQuery('xluDataQuery', () => fetchData("XLU", start, end));
-  const { data: xlvDataJSON, error: xlvError} = useQuery('xlvDataQuery', () => fetchData("XLV", start, end));
-  const { data: xlyDataJSON, error: xlyError} = useQuery('xlyDataQuery', () => fetchData("XLY", start, end));
-  const { data: xrtDataJSON, error: xrtError } = useQuery('xrtDataQuery', () => fetchData("XRT", start, end));
+  const { data: voxDataJSON, error: voxError, refetch: voxRefetch} = useQuery('voxDataQuery', () => fetchData("VOX", start, end));
+  const { data: xlbDataJSON, error: xlbError, refetch: xlbRefetch} = useQuery('xlbDataQuery', () => fetchData("XLB", start, end));
+  const { data: xleDataJSON, error: xleError, refetch: xleRefetch} = useQuery('xleDataQuery', () => fetchData("XLE", start, end));
+  const { data: xlfDataJSON, error: xlfError, refetch: xlfRefetch} = useQuery('xlfDataQuery', () => fetchData("XLF", start, end));
+  const { data: xliDataJSON, error: xliError, refetch: xliRefetch} = useQuery('xliDataQuery', () => fetchData("XLI", start, end));
+  const { data: xlkDataJSON, error: xlkError, refetch: xlkRefetch} = useQuery('xlkDataQuery', () => fetchData("XLK", start, end));
+  const { data: xlpDataJSON, error: xlpError, refetch: xlpRefetch} = useQuery('xlpDataQuery', () => fetchData("XLP", start, end));
+  const { data: xluDataJSON, error: xluError, refetch: xluRefetch} = useQuery('xluDataQuery', () => fetchData("XLU", start, end));
+  const { data: xlvDataJSON, error: xlvError, refetch: xlvRefetch} = useQuery('xlvDataQuery', () => fetchData("XLV", start, end));
+  const { data: xlyDataJSON, error: xlyError, refetch: xlyRefetch} = useQuery('xlyDataQuery', () => fetchData("XLY", start, end));
+  const { data: xrtDataJSON, error: xrtError, refetch: xrtRefetch} = useQuery('xrtDataQuery', () => fetchData("XRT", start, end));
 
   // console.log(xluDataJSON);
 
@@ -67,7 +88,25 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}
   if (xlyError) { console.error('Error fetching data:', xlyError); }
   if (xrtError) { console.error('Error fetching data:', xrtError); }
 
+  useEffect(() => {
+    // Some condition or event that triggers a refetch
 
+      voxRefetch();
+      xlbRefetch();
+      xleRefetch();
+      xlfRefetch();
+      xlkRefetch();
+      xliRefetch();
+      xlpRefetch();
+      xluRefetch();
+      xlvRefetch();
+      xlyRefetch();
+      xrtRefetch();
+    
+  
+    // ... other conditions ...
+  
+  }, [currentYear]);
 
   //   const [hist, setHist] = useState<HistoricalData[]>([]);
   let vox: any = [];
@@ -113,18 +152,39 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}
     xrt = xrtData;
 
 
+    let total = 0;
+
+    for (const sector of weights) {
+        total += sector.value;
+    }
+
+
+
+    const vox_shares = (weights[0].value / vox[0].value);
+    const xlb_shares = (weights[7].value / xlb[0].value);
+    const xle_shares = (weights[3].value / xle[0].value);
+    const xlf_shares = (weights[4].value / xlf[0].value);
+    const xli_shares = (weights[6].value / xli[0].value);
+    const xlk_shares = (weights[9].value / xlk[0].value);
+    const xlp_shares = (weights[2].value / xlp[0].value);
+    const xlu_shares = (weights[10].value / xlu[0].value);
+    const xlv_shares = (weights[5].value / xlv[0].value);
+    const xly_shares = (weights[1].value / xly[0].value);
+    const xrt_shares = (weights[8].value / xrt[0].value);
+
+
     // apply coefficients
-    for (const date in vox) { vox[date].value *= weights[0]; }
-    for (const date in xlb) { xlb[date].value *= weights[1]; }
-    for (const date in xle) { xle[date].value *= weights[2]; }
-    for (const date in xlf) { xlf[date].value *= weights[3]; }
-    for (const date in xli) { xli[date].value *= weights[4]; }
-    for (const date in xlk) { xlk[date].value *= weights[5]; }
-    for (const date in xlp) { xlp[date].value *= weights[6]; }
-    for (const date in xlu) { xlu[date].value *= weights[7]; }
-    for (const date in xlv) { xlv[date].value *= weights[8]; }
-    for (const date in xly) { xly[date].value *= weights[9]; }
-    for (const date in xrt) { xrt[date].value *= weights[10]; }
+    for (const date in vox) { vox[date].value = vox_shares * vox[date].value; }
+    for (const date in xlb) { xlb[date].value = xlb_shares * xlb[date].value; }
+    for (const date in xle) { xle[date].value = xle_shares * xle[date].value; }
+    for (const date in xlf) { xlf[date].value = xlf_shares * xlf[date].value; }
+    for (const date in xli) { xli[date].value = xli_shares * xli[date].value; }
+    for (const date in xlk) { xlk[date].value = xlk_shares * xlk[date].value; }
+    for (const date in xlp) { xlp[date].value = xlp_shares * xlp[date].value; }
+    for (const date in xlu) { xlu[date].value = xlu_shares * xlu[date].value; }
+    for (const date in xlv) { xlv[date].value = xlv_shares * xlv[date].value; }
+    for (const date in xly) { xly[date].value = xly_shares * xly[date].value; }
+    for (const date in xrt) { xrt[date].value = xrt_shares * xrt[date].value; }
 
     // last values
     // console.log(vox[vox.length - 1].value);
@@ -142,7 +202,18 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}
         vox[date].value += xlv[date].value;
         vox[date].value += xly[date].value;
         vox[date].value += xrt[date].value;
+        vox[date].value += weights[11];
     }
+
+    let end_of_year: number = vox[vox.length - 1].value;
+    // console.log(end_of_year);
+
+    let roundedEndOfYear: number = Math.round(end_of_year * 10000) / 10000;
+
+    // console.log(roundedEndOfYear);
+
+    
+
 
    }
 
