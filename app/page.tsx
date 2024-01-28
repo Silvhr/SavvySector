@@ -44,22 +44,27 @@ const SPData1 = [
 ];
 
 export default function IndexPage() {
-  // Function to handle updates from AssetSlider
+  // State for holding financial data
+  const [financialDataState, setFinancialDataState] = useState(financialData);
+
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
-    // Handle the updated data from AssetSlider
-    console.log('Updated Portfolio Data:', updatedData);
+    console.log('Updating Portfolio Data:', updatedData); // Log new data
+    setFinancialDataState([...updatedData]);
   };
+
     return (
         <main className="p-4 md:p-1 mx-auto max-w-7xl">
             <Card className="mt-6">
                 <Title>Run Simulation</Title>
 
-                {/* Other components */}
                 
+                {/* Financial Sectors Donut Chart - Dynamic */}
                 <Card title="Financial Sectors Donut Chart">
-                    <DonutChart data={financialData} />
+                    <DonutChart data={financialDataState} />
                 </Card>
 
+              
+                {/* S&P500 Donut Chart - Static */}
                  <Card title="S&P500 Donut Chart">
                     <DonutChart data={SPData1} />
                     </Card>
