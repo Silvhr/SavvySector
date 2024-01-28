@@ -4,7 +4,8 @@ import LineChart from './linechart';
 import React, { ReactNode, useEffect, useState } from 'react';
 import axios from "axios"
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-
+import { useAtom } from 'jotai'
+import { valueAtom } from "@/components/atoms/valueAtom"
 
 
 interface HistoricalData {
@@ -43,6 +44,8 @@ const fetchData = async (sector: string, start: string, end:string) => {
 
 
 const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear}) => {
+
+    const [value, setValue] = useAtom(valueAtom);
 
     const start = String(currentYear) + "-01-01";
     const end = String(currentYear) + "-12-31"
@@ -155,7 +158,7 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
     for (const date in xrt) { xrt[date].value = xrt_shares * xrt[date].value; }
 
     // last values
-    console.log(vox[vox.length - 1].value);
+    // console.log(vox[vox.length - 1].value);
 
     for (const date in vox) { 
         
@@ -173,7 +176,15 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, currentYear
         vox[date].value += weights[11];
     }
 
+    let end_of_year: number = vox[vox.length - 1].value;
+    // console.log(end_of_year);
+
+    let roundedEndOfYear: number = Math.round(end_of_year * 10000) / 10000;
+
+    console.log(roundedEndOfYear);
+
     
+
 
    }
 

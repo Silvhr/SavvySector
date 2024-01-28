@@ -100,6 +100,36 @@ const SPData5 = [
   { sector: "Cash", value: 0 },
 ];
 
+const SPData6 = [
+    { sector: "Communication Services", value: 320000 },
+    { sector: "Consumer Discretionary", value: 60000 },
+    { sector: "Consumer Staples", value: 80000 },
+    { sector: "Energy", value: 70000 },
+    { sector: "Finance", value: 120000 },
+    { sector: "Healthcare", value: 80000 },
+    { sector: "Industrials", value: 80000 },
+    { sector: "Materials", value: 20000 },
+    { sector: "Real Estate", value: 120000 },
+    { sector: "Technology", value: 20000 },
+    { sector: "Utilities", value: 30000 },
+    { sector: "Cash", value: 0 },
+];
+
+const SPData7 = [
+{ sector: "Communication Services", value: 330000 },
+{ sector: "Consumer Discretionary", value: 60000 },
+{ sector: "Consumer Staples", value: 90000 },
+{ sector: "Energy", value: 70000 },
+{ sector: "Finance", value: 100000 },
+{ sector: "Healthcare", value: 80000 },
+{ sector: "Industrials", value: 70000 },
+{ sector: "Materials", value: 20000 },
+{ sector: "Real Estate", value: 20000 },
+{ sector: "Technology", value: 130000 },
+{ sector: "Utilities", value: 30000 },
+{ sector: "Cash", value: 0 },
+];
+
 const fetchData = async (year: number) => {
   try {
     const response = await axios.get('/api/headlines', {
@@ -119,6 +149,7 @@ export default function Page() {
   const [startYear, setStartYear] = useState(2005); // eventually update this randomly from range from database
   const [currentYear, setCurrentYear] = useState(startYear); // eventually update this randomly from range from database
   const [financialDataState, setFinancialDataState] = useState(SPData1);
+  const [donutState, setDonutState] = useState(SPData1);
   const { data: headline, error } = useQuery('headlines', () =>
     fetchData(currentYear)
   );
@@ -126,6 +157,7 @@ export default function Page() {
     console.log(error);
   }
 
+  const [lineChartState, setLineChartState] = useState(SPData1);
 
   // State for holding financial data
 
@@ -141,11 +173,56 @@ export default function Page() {
 
       // console.log(((currentYear - startYear) / 5) * 100);
       // console.log((currentYear - startYear / 5));
+
+
+        
+
+
+
+
     } else {
       // setGameOver(true);
       // console.log('Game Over');
       setCurrentYear(startYear);
     }
+
+
+    if (currentYear == 2005) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData2);
+        setFinancialDataState(SPData2);
+    }
+    else if (currentYear == 2006) {
+        setLineChartState(financialDataState);
+        setDonutState(SPData3);
+        setFinancialDataState(SPData3);
+    }
+    else if (currentYear == 2007) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData4);
+        setFinancialDataState(SPData4);
+    }
+    else if (currentYear == 2008) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData5);
+        setFinancialDataState(SPData5);
+    }
+    else if (currentYear == 2009) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData6);
+        setFinancialDataState(SPData6);
+    }
+    else if (currentYear == 2010) { 
+        setLineChartState(financialDataState);
+        setDonutState(SPData7);
+        setFinancialDataState(SPData7);
+    }
+    
+
+
+
+
+
   };
     const [weights, setWeights] = useState([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const [start, setStart] = useState("2005-01-01");
@@ -218,16 +295,16 @@ export default function Page() {
           <DonutChart data={financialDataState} />
         </Card>
         <Card title="S&P500 Donut Chart">
-          <DonutChart data={SPData1} />
+          <DonutChart data={donutState} />
         </Card>
         <Card>
-            <LineChartBuilder weights={financialDataState} currentYear={currentYear}/>
+            <LineChartBuilder weights={lineChartState} currentYear={currentYear}/>
           {/* <LineChart data={hist} /> */}
         </Card>
 
         <Card title="Asset Slider ">
           <AssetSlider
-            financialData={SPData1}
+            financialData={donutState}
             onPortfolioUpdate={handlePortfolioUpdate}
           />
         </Card>
