@@ -43,20 +43,42 @@ const LineChart: React.FC<LineChartProps> = ({ data }, width) => {
   // Sample data for the chart
   const chartData = {
     options: {
+      grid: {
+        show: false
+      },
       chart: {
-        id: 'basic-line'
+        id: 'basic-line',
+        toolbar: {
+          show: false,
+        }
+      },
+      toolbar: {
+        show: false
+      },
+      zoom: {
+        enabled: false
       },
       xaxis: {
         categories: times,
+        show: false,
+        axisBorder: {
+          color: 'black'
+        },
+        lines: {
+          show: false
+        },
         labels: {
           show: true, // Initially show all labels
           rotate: 0 // Rotate labels if needed
+        },
+        axisTicks: {
+          show: false
         }
       }
     },
     series: [
       {
-        name: 'Series 1',
+        name: 'Price',
         data: series
       }
     ]
@@ -85,6 +107,7 @@ const LineChart: React.FC<LineChartProps> = ({ data }, width) => {
           type="line"
           height={windowSize.height}
           width={windowSize.width}
+          className="h-60"
         />
       )}
     </div>
