@@ -127,7 +127,7 @@ const LineChartBuilder: React.FC<LineChartBuilderProps> = ({weights, start, end}
     for (const date in xrt) { xrt[date].value *= weights[10]; }
 
     // last values
-    console.log(vox[vox.length - 1].value);
+    // console.log(vox[vox.length - 1].value);
 
     for (const date in vox) { 
         

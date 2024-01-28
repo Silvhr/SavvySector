@@ -50,6 +50,9 @@ const LineChart: React.FC<LineChartProps> = ({ data }, width) => {
         id: 'basic-line',
         toolbar: {
           show: false,
+          tools: {
+            zoom: false
+          }
         }
       },
       toolbar: {
@@ -59,21 +62,19 @@ const LineChart: React.FC<LineChartProps> = ({ data }, width) => {
         enabled: false
       },
       xaxis: {
-        categories: times,
         show: false,
-        axisBorder: {
-          color: 'black'
-        },
-        lines: {
+        labels: {
           show: false
         },
-        labels: {
-          show: true, // Initially show all labels
-          rotate: 0 // Rotate labels if needed
+        axisBorder: {
+          show: false
         },
         axisTicks: {
           show: false
         }
+      },
+      yaxis: {
+        show: true
       }
     },
     series: [

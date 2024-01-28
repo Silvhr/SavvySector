@@ -5,6 +5,17 @@ import { useQuery } from 'react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogFooter
+} from '@/components/ui/alert-dialog';
 import axios from 'axios';
 import {
   Carousel,
@@ -18,6 +29,7 @@ import { Text } from '@tremor/react';
 import DonutChart from './DonutChart'; // Ensure this path is correct
 import AssetSlider from './AssetSlider';
 import LineChartBuilder from './linechartBuilder';
+import { setTimeout } from 'timers';
 
 interface FinancialSector {
   sector: string;
@@ -41,73 +53,75 @@ const SPData1 = [
 ];
 
 const SPData2 = [
-  { sector: "Communication Services", value: 270000 },
-  { sector: "Consumer Discretionary", value: 50000 },
-  { sector: "Consumer Staples", value: 80000 },
-  { sector: "Energy", value: 80000 },
-  { sector: "Finance", value: 170000 },
-  { sector: "Healthcare", value: 90000 },
-  { sector: "Industrials", value: 90000 },
-  { sector: "Materials", value: 20000 },
-  { sector: "Real Estate", value: 20000 },
-  { sector: "Technology", value: 110000 },
-  { sector: "Utilities", value: 20000 },
-  { sector: "Cash", value: 0 },
+  { sector: 'Communication Services', value: 270000 },
+  { sector: 'Consumer Discretionary', value: 50000 },
+  { sector: 'Consumer Staples', value: 80000 },
+  { sector: 'Energy', value: 80000 },
+  { sector: 'Finance', value: 170000 },
+  { sector: 'Healthcare', value: 90000 },
+  { sector: 'Industrials', value: 90000 },
+  { sector: 'Materials', value: 20000 },
+  { sector: 'Real Estate', value: 20000 },
+  { sector: 'Technology', value: 110000 },
+  { sector: 'Utilities', value: 20000 },
+  { sector: 'Cash', value: 0 }
 ];
 
 const SPData3 = [
-  { sector: "Communication Services", value: 340000 },
-  { sector: "Consumer Discretionary", value: 40000 },
-  { sector: "Consumer Staples", value: 70000 },
-  { sector: "Energy", value: 80000 },
-  { sector: "Finance", value: 130000 },
-  { sector: "Healthcare", value: 90000 },
-  { sector: "Industrials", value: 80000 },
-  { sector: "Materials", value: 20000 },
-  { sector: "Real Estate", value: 10000 },
-  { sector: "Technology", value: 100000 },
-  { sector: "Utilities", value: 40000 },
-  { sector: "Cash", value: 0 },
+  { sector: 'Communication Services', value: 340000 },
+  { sector: 'Consumer Discretionary', value: 40000 },
+  { sector: 'Consumer Staples', value: 70000 },
+  { sector: 'Energy', value: 80000 },
+  { sector: 'Finance', value: 130000 },
+  { sector: 'Healthcare', value: 90000 },
+  { sector: 'Industrials', value: 80000 },
+  { sector: 'Materials', value: 20000 },
+  { sector: 'Real Estate', value: 10000 },
+  { sector: 'Technology', value: 100000 },
+  { sector: 'Utilities', value: 40000 },
+  { sector: 'Cash', value: 0 }
 ];
 
 const SPData4 = [
-  { sector: "Communication Services", value: 260000 },
-  { sector: "Consumer Discretionary", value: 40000 },
-  { sector: "Consumer Staples", value: 100000 },
-  { sector: "Energy", value: 90000 },
-  { sector: "Finance", value: 120000 },
-  { sector: "Healthcare", value: 100000 },
-  { sector: "Industrials", value: 80000 },
-  { sector: "Materials", value: 20000 },
-  { sector: "Real Estate", value: 10000 },
-  { sector: "Technology", value: 130000 },
-  { sector: "Utilities", value: 50000 },
-  { sector: "Cash", value: 0 },
+  { sector: 'Communication Services', value: 260000 },
+  { sector: 'Consumer Discretionary', value: 40000 },
+  { sector: 'Consumer Staples', value: 100000 },
+  { sector: 'Energy', value: 90000 },
+  { sector: 'Finance', value: 120000 },
+  { sector: 'Healthcare', value: 100000 },
+  { sector: 'Industrials', value: 80000 },
+  { sector: 'Materials', value: 20000 },
+  { sector: 'Real Estate', value: 10000 },
+  { sector: 'Technology', value: 130000 },
+  { sector: 'Utilities', value: 50000 },
+  { sector: 'Cash', value: 0 }
 ];
 
 const SPData5 = [
-  { sector: "Communication Services", value: 350000 },
-  { sector: "Consumer Discretionary", value: 50000 },
-  { sector: "Consumer Staples", value: 80000 },
-  { sector: "Energy", value: 70000 },
-  { sector: "Finance", value: 120000 },
-  { sector: "Healthcare", value: 80000 },
-  { sector: "Industrials", value: 80000 },
-  { sector: "Materials", value: 20000 },
-  { sector: "Real Estate", value: 20000 },
-  { sector: "Technology", value: 120000 },
-  { sector: "Utilities", value: 10000 },
-  { sector: "Cash", value: 0 },
+  { sector: 'Communication Services', value: 350000 },
+  { sector: 'Consumer Discretionary', value: 50000 },
+  { sector: 'Consumer Staples', value: 80000 },
+  { sector: 'Energy', value: 70000 },
+  { sector: 'Finance', value: 120000 },
+  { sector: 'Healthcare', value: 80000 },
+  { sector: 'Industrials', value: 80000 },
+  { sector: 'Materials', value: 20000 },
+  { sector: 'Real Estate', value: 20000 },
+  { sector: 'Technology', value: 120000 },
+  { sector: 'Utilities', value: 10000 },
+  { sector: 'Cash', value: 0 }
 ];
 
 const fetchData = async (year: number) => {
   try {
+    console.log('yo yo yo');
+    console.log(year);
     const response = await axios.get('/api/headlines', {
       params: {
         year: year
       }
     });
-    const data: Headline = response.data;
+    const data: YearlyHeadlines = response.data;
     return data;
   } catch (error) {
     console.error('Error loading menu data:', error);
@@ -115,44 +129,80 @@ const fetchData = async (year: number) => {
   }
 };
 export default function Page() {
-  const plugin = useRef(Autoplay({ delay: 3500, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
   const [startYear, setStartYear] = useState(2005); // eventually update this randomly from range from database
   const [currentYear, setCurrentYear] = useState(startYear); // eventually update this randomly from range from database
   const [financialDataState, setFinancialDataState] = useState(SPData1);
-  const { data: headline, error } = useQuery('headlines', () =>
-    fetchData(currentYear)
-  );
-  if(error) {
+  const [gameOver, setGameOver] = useState(false);
+  const {
+    data: headline,
+    error,
+    refetch,
+    isLoading
+  } = useQuery('headlines', () => fetchData(currentYear), {
+    enabled: false, // Set enabled to false to disable automatic refetching
+  });
+  if (error) {
     console.log(error);
   }
-
 
   // State for holding financial data
 
   const handlePortfolioUpdate = (updatedData: FinancialSector[]) => {
-    console.log('Updating Portfolio Data:', updatedData); // Log new data
+    // console.log('Updating Portfolio Data:', updatedData); // Log new data
     setFinancialDataState([...updatedData]);
   };
 
   const handleIncrementYear = () => {
-    if (currentYear < startYear + 6) {
+    console.log(((currentYear - startYear) / 5) * 100);
+    if (currentYear < startYear + 4) {
       setCurrentYear((prevYear) => prevYear + 1);
+      setTimeout(() => {
+        console.log("wtf is going on")
+        refetch();
+      }, 250);
       // console.log(currentYear);
 
       // console.log(((currentYear - startYear) / 5) * 100);
       // console.log((currentYear - startYear / 5));
-    } else {
-      // setGameOver(true);
-      // console.log('Game Over');
-      setCurrentYear(startYear);
+    } else if (currentYear == startYear + 4) {
+      setCurrentYear((prevYear) => prevYear + 1);
+      setGameOver(true);
+      console.log('game over');
     }
   };
-    const weights: number[] = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const start: string = "2005-01-01";
-    const end: string = "2006-01-01";
+  const handleGameOver = () => {
+    setCurrentYear(startYear);
+    setGameOver(false);
+    setTimeout(() => {
+      console.log("wtf is going on")
+      refetch();
+    }
+    , 1000);
+  };
+  const weights: number[] = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const start: string = '2005-01-01';
+  const end: string = '2006-01-01';
 
   return (
     <main className="p-4 md:p-1 mx-auto max-w-7xl">
+      <AlertDialog open={gameOver}>
+        {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Game Over</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => handleGameOver()}>
+              Restart
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="flex flex-col">
         <Card className="mt-6 flex">
           {/* this div should be 3/4 of the width of the card */}
@@ -180,9 +230,14 @@ export default function Page() {
               plugins={[plugin.current]}
               onMouseEnter={plugin.current.stop}
               onMouseLeave={plugin.current.reset}
+              opts={{
+                align: 'start',
+                loop: true
+              }}
             >
               <CarouselContent className="-ml-1">
-                {Array.from({ length: 5 }).map((_, index) => (
+                {headline?.headlines.map((headline, index) => (
+                  // console.log(headline),
                   <CarouselItem
                     key={index}
                     className="pl-1 md:basis-1/2 lg:basis-1/3"
@@ -190,9 +245,7 @@ export default function Page() {
                     <div className="p-1">
                       <Card>
                         <CardContent className="flex aspect-square items-center justify-center p-6">
-                          <span className="text-2xl font-semibold">
-                            {index + 1}
-                          </span>
+                          <a href={headline.url}><span className="">{headline.title}</span></a>
                         </CardContent>
                       </Card>
                     </div>
@@ -208,7 +261,8 @@ export default function Page() {
               title="Macro Information"
               className="flex flex-col justify-center items-center"
             >
-              <h1 className="text-center">Macro Information</h1>
+              <h1 className="text-center text-3xl">Macro Information</h1>
+              <h2 className="text-center">Current Year: <b>{currentYear}</b></h2>
             </Card>
           </div>
         </Card>
@@ -221,8 +275,7 @@ export default function Page() {
           <DonutChart data={SPData1} />
         </Card>
         <Card>
-            <LineChartBuilder weights={weights} start={start} end={end}/>
-          {/* <LineChart data={hist} /> */}
+          <LineChartBuilder weights={weights} start={start} end={end} />
         </Card>
 
         <Card title="Asset Slider ">
