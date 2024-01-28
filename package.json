@@ -25,6 +25,7 @@
     "embla-carousel-react": "8.0.0-rc21",
     "eslint": "8.52.0",
     "eslint-config-next": "14.0.0",
+    "jotai": "^2.6.3",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.316.0",
     "next": "14.0.0",

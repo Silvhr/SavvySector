@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { valueAtom } from '@/components/atoms/valueAtom';
+import { useAtom } from 'jotai';
 
 // Define the type for individual data items
 interface FinancialDataItem {
@@ -13,6 +15,9 @@ interface AssetSliderProps {
 }
 
 const AssetSlider: React.FC<AssetSliderProps> = ({ financialData, onPortfolioUpdate }) => {
+  const [portfolioValue, setValue] = useAtom(valueAtom);
+  
+
   const [values, setValues] = useState<FinancialDataItem[]>(financialData);
   const [totalAllocation, setTotalAllocation] = useState<number>(
     financialData.reduce((acc, item) => acc + item.value, 0)
@@ -33,11 +38,11 @@ const AssetSlider: React.FC<AssetSliderProps> = ({ financialData, onPortfolioUpd
   };
 
   const handleSavePortfolio = () => {
-    if (totalAllocation === 1000000) {  // Check if total allocation is 1,000,000
+    if (totalAllocation === portfolioValue) {  // Check if total allocation is 1,000,000
       onPortfolioUpdate(values);
       setUpdateStatus('Portfolio updated successfully!');
     } else {
-      setUpdateStatus('Total allocation must be exactly 1,000,000.');
+      setUpdateStatus(`Total allocation must be exactly ${portfolioValue}.`);
     }
   };
 
@@ -53,10 +58,11 @@ const AssetSlider: React.FC<AssetSliderProps> = ({ financialData, onPortfolioUpd
             step="10000"
             value={item.value}
             onChange={(e) => handleSliderChange(item.sector, parseInt(e.target.value))}
+            style={{ width: '300px' }}  // Adjust the width as needed
           />
         </div>
       ))}
-      <div>Total Allocated: {totalAllocation}</div>
+      <div>Total Allocated: {totalAllocation}/{portfolioValue}</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
         <button 
           onClick={handleSavePortfolio}
