@@ -36,7 +36,7 @@ export default function IndexPage({ searchParams }: { searchParams: { q: string 
   const { data: voxDataJSON, isError } = useQuery('voxDataQuery', () => fetchData("VOX"));
   const { data: xluDataJSON, error } = useQuery('xluDataQuery', () => fetchData("XLU"));
 
-  console.log(xluDataJSON);
+  // console.log(xluDataJSON);
 
   if (isError) {
     console.error('Error fetching data:', isError);
